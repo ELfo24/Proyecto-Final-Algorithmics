@@ -15,29 +15,48 @@ class Ventana1(QWidget):
         self.show()
 
     def initUI(self):
-        self.btn_incial=QLabel(txt_incial,self)
-        self.btn_intrucciones=QLabel(txt_instrucciones,self)
+
+        #Etiqueta de (inicio)
+        self.txt_incial=QLabel(txt_incial,self)
+        self.lbl_nombre_contratista=QLabel(txt_nombre_contratista,self)
+        self.lbl_nombre_cliente=QLabel(txt_nombre_cliente,self)
+
+        # Cuadros de texto para ingresar el nombre del contratista y el cliente y ajustar su tamaño
+        self.txt_nombre_contratista=QLineEdit(self)
+        self.txt_nombre_cliente=QLineEdit(self)
+        self.txt_nombre_contratista.setFixedWidth(200) 
+        self.txt_nombre_cliente.setFixedWidth(200) 
+
+        # Boton para pasar a la siguiente ventana
         self.btn_next=QPushButton(txt_next,self)
-    
+
+        # Diseño de la ventana utilizando layouts
+        v_line=QVBoxLayout()
+        h_layout=QHBoxLayout()
+        v_line.addWidget(self.txt_incial, alignment= Qt.AlignCenter)
+        v_line.addWidget(self.lbl_nombre_contratista, alignment= Qt.AlignCenter)
+        v_line.addWidget(self.txt_nombre_contratista, alignment= Qt.AlignCenter)
+        v_line.addWidget(self.lbl_nombre_cliente, alignment= Qt.AlignCenter)
+        v_line.addWidget(self.txt_nombre_cliente, alignment= Qt.AlignCenter)
+        v_line.addWidget(self.btn_next, alignment= Qt.AlignCenter)
+        self.setLayout(v_line)
 
 
     def nextclick(self):
+        # Funcion para pasar a la siguiente ventana
         self.tw=Ventana2()
         self.hide()
 
     def connects(self):
+        # Funcion para conectar el boton con la funcion que pasa a la siguiente ventana
         self.btn_next.clicked.connect(self.nextclick)
 
     def set_appear(self):
+        # Funcion para establecer la apariencia de la ventana (etiqueta, tamaño, ubicación)
         self.setWindowTitle(txt_titulo)
         self.resize(win_width, win_height)
         self.move(win_x, win_y)
-        v_line=QVBoxLayout()
-        v_line.addWidget(self.btn_incial, alignment= Qt.AlignCenter)
-        v_line.addWidget(self.btn_intrucciones, alignment= Qt.AlignCenter)
-        v_line.addWidget(self.btn_next, alignment= Qt.AlignCenter)
-        self.setLayout(v_line)
-
+        
 if __name__ == '__main__':
     app=QApplication([])
     mw=Ventana1()
