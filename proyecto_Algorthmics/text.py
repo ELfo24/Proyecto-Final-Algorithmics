@@ -19,4 +19,7 @@ txt_precio = "precio"
 txt_total = "total"
 txt_agregar = "Agregar"
 txt_terminar= "Terminar"
+txt_importar_txt="Importar a txt"
+txt_importar_pdf="Importar a PDF"
+
 

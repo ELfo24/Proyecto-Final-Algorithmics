@@ -1,3 +1,4 @@
+import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication, QDoubleSpinBox, QHeaderView, QMainWindow, QPushButton, QLabel, QSpinBox, QTableWidget, QVBoxLayout, 
                             QWidget, QLineEdit, QHBoxLayout, QGroupBox, QRadioButton, QMessageBox, QTableWidgetItem)
@@ -153,18 +154,35 @@ class Ventana2(QWidget):
     def connects(self):
         # Funcion para conectar los botones con la funcion de agregar concepto a la tabla y con la funcion que pasa a la siguiente ventana
         self.btn_agregar.clicked.connect(self.agregar_click)
-        self.btn_culminar.clicked.connect(self.nextclick)
+        self.btn_culminar.clicked.connect(self.culminar_click)
 
         #actualizacion de datos por si el usuario los edita directamente en la tabla, se recalcula el total
         self.btn_tabla.cellChanged.connect(self.actualizar_valores_tabla)
 
-    def nextclick(self):
+    def culminar_click(self):
+        
+        # Recopilar datos de la tabla 
+        datos = []
+        for row in range(self.btn_tabla.rowCount()):
+            concepto = self.btn_tabla.item(row, 0).text() if self.btn_tabla.item(row, 0) else ""
+            cantidad = self.btn_tabla.item(row, 1).text() if self.btn_tabla.item(row, 1) else ""
+            precio = self.btn_tabla.item(row, 2).text() if self.btn_tabla.item(row, 2) else ""
+            total = self.btn_tabla.item(row, 3).text() if self.btn_tabla.item(row, 3) else ""
+            datos.append([concepto, cantidad, precio, total])
+
         # Funcion para pasar a la siguiente ventana
-        self.tw=Ventana3()
-        self.hide()
+        self.tw = Ventana3(datos_tabla=datos)  
+        self.tw.show()      
+        self.hide()  
 
     def set_appear(self):
         # Funcion para establecer la apariencia de la ventana (etiqueta, tamaño, ubicación)
         self.setWindowTitle(txt_titulo)
         self.resize(win_width, win_height)
         self.move(win_x, win_y)
+
+if __name__ == '__main__':
+    app=QApplication([])
+    mw=Ventana2()
+    sys.exit(app.exec_())
+
