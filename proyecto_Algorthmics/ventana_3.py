@@ -8,9 +8,11 @@ from ventana_1 import *
 from ventana_2 import *
 
 class Ventana3(QWidget):
-    def __init__(self,datos_tabla=None):
+    def __init__(self,datos_tabla=None, contratista="", cliente=""):
         super().__init__()
         self.datos_tabla= datos_tabla if datos_tabla is not None else []
+        self.contratista= contratista
+        self.cliente= cliente
         self.initUI()
         self.connects()
         self.set_appear()
@@ -45,7 +47,8 @@ class Ventana3(QWidget):
 
         #Encabezado del archivo txt
         datos= "===COTIZACIÓN/PRESUPUESTO===\n\n"
-        datos += "Concepto\tCantidad\tPrecio\tTotal\n"
+        datos += f"Contratista: {self.contratista}\n" f"Cliente: {self.cliente}\n\n"
+        datos += "Concepto\t  Cantidad\t  Precio\t  Total\n"
         datos += "-"*60 + "\n"
 
         #Variable para total general

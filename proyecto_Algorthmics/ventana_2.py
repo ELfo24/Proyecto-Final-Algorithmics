@@ -8,8 +8,10 @@ from ventana_1 import Ventana1
 from ventana_3 import *
 
 class Ventana2(QWidget):
-    def __init__(self):
+    def __init__(self,contratista="", cliente=""):
         super().__init__()
+        self.contratista = contratista
+        self.cliente = cliente
         self.initUI()
         self.connects()
         self.set_appear()
@@ -171,7 +173,7 @@ class Ventana2(QWidget):
             datos.append([concepto, cantidad, precio, total])
 
         # Funcion para pasar a la siguiente ventana
-        self.tw = Ventana3(datos_tabla=datos)  
+        self.tw = Ventana3(datos_tabla=datos, contratista=self.contratista, cliente=self.cliente)  
         self.tw.show()      
         self.hide()  
 

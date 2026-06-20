@@ -43,7 +43,7 @@ class Ventana1(QWidget):
 
 
     def nextclick(self):
-
+        nombre=[]
         # Obtener los nombres del contratista y cliente, eliminando espacios en blanco al inicio y al final
         contratista = self.txt_nombre_contratista.text().strip()
         cliente = self.txt_nombre_cliente.text().strip()
@@ -59,9 +59,11 @@ class Ventana1(QWidget):
             alerta.exec_()
             
             return
+        nombre.append(contratista)
+        nombre.append(cliente)
 
         # Funcion para pasar a la siguiente ventana
-        self.tw=Ventana2()
+        self.tw=Ventana2(contratista=nombre[0], cliente=nombre[1])
         self.hide()
 
     def connects(self):
